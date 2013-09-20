@@ -1,0 +1,47 @@
+Name: libsailfishapp
+Version: 0.0.1
+Release: 1
+Summary: Sailfish Application Library
+Group: Development/Libraries
+License: LGPL
+URL: http://bitbucket.org/jolla/sdk-libsailfishapp
+Source: %{name}-%{version}.tar.bz2
+BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(qdeclarative5-boostable)
+
+%description
+This library should be used by Sailfish applications to create a QML view.
+libsailfishapp will take care of using the booster if possible, and will
+also make sure that applications built with the Sailfish SDK are future-
+proof, by putting all special cases inside libsailfishapp, where it can be
+updated by the vendor.
+
+%package devel
+Summary: Development library for %{summary}
+Requires: %{name} = %{version}
+Requires: pkgconfig(qdeclarative5-boostable)
+
+%description devel
+This package contains the development library for %{name}.
+
+%prep
+%setup -q
+
+%build
+%qmake5
+make
+
+%install
+make install INSTALL_ROOT=%{buildroot}
+
+%files
+%defattr(-,root,root,-)
+%{_bindir}/sailfish-app-launch
+%{_libdir}/%{name}.so.*
+
+%files devel
+%defattr(-,root,root,-)
+%{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/sailfishapp.pc
+%{_datadir}/qt5/mkspecs/features/sailfishapp.prf
+%{_includedir}/sailfishapp/sailfishapp.h

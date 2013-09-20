@@ -1,0 +1,38 @@
+libsailfishapp: Sailfish Application Library
+============================================
+
+License: GNU Lesser General Public License version 2.1
+
+This library should be used by Sailfish applications to create a QML view.
+libsailfishapp will take care of using the booster if possible, and will
+also make sure that applications built with the Sailfish SDK are future-
+proof, by putting all special cases inside libsailfishapp, where it can be
+updated by the vendor.
+
+Usage:
+
+  1. In the .spec file, add:
+
+        BuildRequires: pkgconfig(sailfishapp)
+
+  2. In the .pro file, add:
+
+        CONFIG += sailfishapp
+
+  3. In the .desktop file, use:
+  
+        Exec=sailfish-app-launch <appname>
+
+The ABI that is provided by libsailfishapp and must be kept stable:
+
+  - libsailfishapp.so.0
+      - SailfishApp::application
+      - SailfishApp::createView
+      - SailfishApp::main
+  - Launcher integration (in .desktop file)
+      - sailfish-app-launch <appname>
+
+The source API that is provided by libsailfishapp and should be kept stable:
+
+  - qmake
+      - CONFIG += sailfishapp
