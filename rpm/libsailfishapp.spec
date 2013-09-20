@@ -7,6 +7,8 @@ License: LGPL
 URL: http://bitbucket.org/jolla/sdk-libsailfishapp
 Source: %{name}-%{version}.tar.bz2
 BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(Qt5Quick)
+BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
 
 %description
