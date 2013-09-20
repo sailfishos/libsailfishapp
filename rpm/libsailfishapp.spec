@@ -10,6 +10,8 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description
 This library should be used by Sailfish applications to create a QML view.
@@ -35,6 +37,10 @@ make
 
 %install
 make install INSTALL_ROOT=%{buildroot}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
