@@ -31,14 +31,16 @@
 #include <MDeclarativeCache>
 
 
-QGuiApplication *
-SailfishAppPriv::application(int &argc, char **argv)
+namespace SailfishAppPriv {
+
+QGuiApplication *application(int &argc, char **argv)
 {
     return MDeclarativeCache::qApplication(argc, argv);
 }
 
-QQuickView *
-SailfishAppPriv::view()
+QQuickView *view()
 {
     return MDeclarativeCache::qQuickView();
 }
+
+}; /* namespace SailfishAppPriv */

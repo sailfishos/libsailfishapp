@@ -32,14 +32,16 @@
 #include <QQuickView>
 
 
-QGuiApplication *
-SailfishAppPriv::application(int &argc, char **argv)
+namespace SailfishAppPriv {
+
+QGuiApplication *application(int &argc, char **argv)
 {
     return new QGuiApplication(argc, argv);
 }
 
-QQuickView *
-SailfishAppPriv::view()
+QQuickView *view()
 {
     return new QQuickView;
 }
+
+}; /* namespace SailfishAppPriv */

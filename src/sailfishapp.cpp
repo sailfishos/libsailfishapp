@@ -37,8 +37,9 @@
 #include <QDir>
 
 
-QGuiApplication *
-SailfishApp::application(int &argc, char **argv)
+namespace SailfishApp {
+
+QGuiApplication *application(int &argc, char **argv)
 {
     static QGuiApplication *app = NULL;
 
@@ -51,47 +52,45 @@ SailfishApp::application(int &argc, char **argv)
     return app;
 }
 
-QQuickView *
-SailfishApp::createView(const QString &filename)
+QQuickView *createView()
 {
     QQuickWindow::setDefaultAlphaBuffer(true);
-
-    QQuickView *view = SailfishAppPriv::view();
-
-    if (!filename.startsWith("/")) {
-        // Filename is relative to the data directory
-
-        // First, try argv[0] if it's an absolute path (needed for booster)
-        QString argv0 = QCoreApplication::arguments()[0];
-
-        // If that doesn't give an absolute path, use /proc-based detection
-        if (!argv0.startsWith("/")) {
-            argv0 = QCoreApplication::applicationFilePath();
-        }
-
-        QFileInfo exe = QFileInfo(argv0);
-
-        // "/usr/bin/<appname>" --> "/usr/share/<appname>/<filename>"
-        view->setSource(QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2/%3")
-            .arg(exe.absoluteDir().filePath("../share"))
-            .arg(exe.fileName())
-            .arg(filename))));
-    } else {
-        view->setSource(QUrl::fromLocalFile(filename));
-    }
-
-    return view;
+    return SailfishAppPriv::view();
 }
 
-int
-SailfishApp::main(int &argc, char **argv)
+QUrl pathTo(const QString &filename)
+{
+    if (filename.startsWith("/")) {
+        return QUrl::fromLocalFile(filename);
+    }
+
+    // First, try argv[0] if it's an absolute path (needed for booster)
+    QString argv0 = QCoreApplication::arguments()[0];
+
+    // If that doesn't give an absolute path, use /proc-based detection
+    if (!argv0.startsWith("/")) {
+        argv0 = QCoreApplication::applicationFilePath();
+    }
+
+    QFileInfo exe = QFileInfo(argv0);
+
+    // "/usr/bin/<appname>" --> "/usr/share/<appname>/<filename>"
+    return QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2/%3")
+        .arg(exe.absoluteDir().filePath("../share"))
+        .arg(exe.fileName())
+        .arg(filename)));
+}
+
+int main(int &argc, char **argv)
 {
     int result = 0;
 
     QGuiApplication *app = SailfishApp::application(argc, argv);
-    QQuickView *view = SailfishApp::createView("qml/main.qml");
+    QQuickView *view = SailfishApp::createView();
 
+    view->setSource(SailfishApp::pathTo("qml/main.qml"));
     view->show();
+
     result = app->exec();
 
     delete view;
@@ -99,3 +98,5 @@ SailfishApp::main(int &argc, char **argv)
 
     return result;
 }
+
+}; /* namespace SailfishApp */

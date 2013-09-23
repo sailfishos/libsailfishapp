@@ -28,6 +28,7 @@
 #define LIBSAILFISHAPP_SAILFISHAPP_H
 
 #include <QtGlobal>
+#include <QUrl>
 
 class QGuiApplication;
 class QQuickView;
@@ -42,7 +43,10 @@ class QString;
 namespace SailfishApp {
     // Simple interface: Get boosted application and view
     SAILFISHAPP_EXPORT QGuiApplication *application(int &argc, char **argv);
-    SAILFISHAPP_EXPORT QQuickView *createView(const QString &filename);
+    SAILFISHAPP_EXPORT QQuickView *createView();
+
+    // Get fully-qualified path to a file in the data directory
+    SAILFISHAPP_EXPORT QUrl pathTo(const QString &filename);
 
     // Very simple interface: Uses "qml/main.qml" as QML entry point
     SAILFISHAPP_EXPORT int main(int &argc, char **argv);

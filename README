@@ -28,6 +28,7 @@ The ABI that is provided by libsailfishapp and must be kept stable:
   - libsailfishapp.so.0
       - SailfishApp::application
       - SailfishApp::createView
+      - SailfishApp::pathTo
       - SailfishApp::main
   - Launcher integration (in .desktop file)
       - sailfish-app-launch <appname>
