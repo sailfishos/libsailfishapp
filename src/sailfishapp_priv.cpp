@@ -1,3 +1,4 @@
+
 /**
  *
  * Copyright (C) 2013 Jolla Ltd.
@@ -24,35 +25,45 @@
  *
  **/
 
-#ifndef LIBSAILFISHAPP_SAILFISHAPP_H
-#define LIBSAILFISHAPP_SAILFISHAPP_H
 
-#include <QtGlobal>
-#include <QUrl>
+#include "sailfishapp_priv.h"
 
-class QGuiApplication;
-class QQuickView;
-class QString;
+#include <QCoreApplication>
+#include <QString>
+#include <QFileInfo>
+#include <QDir>
 
-#if defined(LIBSAILFISHAPP_LIBRARY)
-#  define SAILFISHAPP_EXPORT Q_DECL_EXPORT
-#else
-#  define SAILFISHAPP_EXPORT Q_DECL_IMPORT
-#endif
 
-namespace SailfishApp {
-    // Simple interface: Get boosted application and view
-    SAILFISHAPP_EXPORT QGuiApplication *application(int &argc, char **argv);
-    SAILFISHAPP_EXPORT QQuickView *createView();
+static QString applicationPath()
+{
+    QString argv0 = QCoreApplication::arguments()[0];
 
-    // Get fully-qualified path to a file in the data directory
-    SAILFISHAPP_EXPORT QUrl pathTo(const QString &filename);
+    if (argv0.startsWith("/")) {
+        // First, try argv[0] if it's an absolute path (needed for booster)
+        return argv0;
+    } else {
+        // If that doesn't give an absolute path, use /proc-based detection
+        return QCoreApplication::applicationFilePath();
+    }
+}
 
-    // Very simple interface: Uses "qml/<appname>.qml" as QML entry point
-    SAILFISHAPP_EXPORT int main(int &argc, char **argv);
-};
 
-/* Forward-declare that main() is exportable (needed for booster) */
-Q_DECL_EXPORT int main(int argc, char *argv[]);
+namespace SailfishAppPriv {
 
-#endif /* LIBSAILFISHAPP_SAILFISHAPP_H */
+QString appName()
+{
+    QFileInfo exe = QFileInfo(applicationPath());
+    return exe.fileName();
+}
+
+QString dataDir()
+{
+    QFileInfo exe = QFileInfo(applicationPath());
+
+    // "/usr/bin/<appname>" --> "/usr/share/<appname>/"
+    return QDir::cleanPath(QString("%1/%2")
+        .arg(exe.absoluteDir().filePath("../share"))
+        .arg(appName()));
+}
+
+}; /* namespace SailfishAppPriv */

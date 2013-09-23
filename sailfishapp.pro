@@ -34,7 +34,7 @@
 
 TEMPLATE = lib
 TARGET = sailfishapp
-VERSION = 0.0.1
+VERSION = 1.0.0
 
 QT += quick qml
 
@@ -43,6 +43,8 @@ DEFINES += LIBSAILFISHAPP_LIBRARY
 HEADERS += include/sailfishapp.h
 
 SOURCES += src/sailfishapp.cpp
+
+SOURCES += src/sailfishapp_priv.cpp
 HEADERS += src/sailfishapp_priv.h
 
 INCLUDEPATH += . include
