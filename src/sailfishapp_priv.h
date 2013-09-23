@@ -29,13 +29,20 @@
 #ifndef LIBSAILFISHAPP_SAILFISHAPP_PRIV_H
 #define LIBSAILFISHAPP_SAILFISHAPP_PRIV_H
 
+#include <QString>
+
+
 class QGuiApplication;
 class QQuickView;
 
 namespace SailfishAppPriv {
-    // Simple interface
+    // Backend-specific (booster, non-booster) functions
     QGuiApplication *application(int &argc, char **argv);
     QQuickView *view();
+
+    // Non-backend-specific functions
+    QString appName();
+    QString dataDir();
 }
 
 #endif /* LIBSAILFISHAPP_SAILFISHAPP_PRIV_H */

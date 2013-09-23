@@ -43,6 +43,8 @@ DEFINES += LIBSAILFISHAPP_LIBRARY
 HEADERS += include/sailfishapp.h
 
 SOURCES += src/sailfishapp.cpp
+
+SOURCES += src/sailfishapp_priv.cpp
 HEADERS += src/sailfishapp_priv.h
 
 INCLUDEPATH += . include

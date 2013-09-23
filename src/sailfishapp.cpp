@@ -60,24 +60,8 @@ QQuickView *createView()
 
 QUrl pathTo(const QString &filename)
 {
-    if (filename.startsWith("/")) {
-        return QUrl::fromLocalFile(filename);
-    }
-
-    // First, try argv[0] if it's an absolute path (needed for booster)
-    QString argv0 = QCoreApplication::arguments()[0];
-
-    // If that doesn't give an absolute path, use /proc-based detection
-    if (!argv0.startsWith("/")) {
-        argv0 = QCoreApplication::applicationFilePath();
-    }
-
-    QFileInfo exe = QFileInfo(argv0);
-
-    // "/usr/bin/<appname>" --> "/usr/share/<appname>/<filename>"
-    return QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2/%3")
-        .arg(exe.absoluteDir().filePath("../share"))
-        .arg(exe.fileName())
+    return QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2")
+        .arg(SailfishAppPriv::dataDir())
         .arg(filename)));
 }
 
@@ -88,7 +72,8 @@ int main(int &argc, char **argv)
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 
-    view->setSource(SailfishApp::pathTo("qml/main.qml"));
+    QString qml = QString("qml/%1.qml").arg(SailfishAppPriv::appName());
+    view->setSource(SailfishApp::pathTo(qml));
     view->show();
 
     result = app->exec();
