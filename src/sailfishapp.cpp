@@ -32,6 +32,8 @@
 #include <QtGlobal>
 
 #include <QGuiApplication>
+#include <QScreen>
+#include <QSize>
 #include <QQuickView>
 #include <QString>
 #include <QDir>
@@ -55,7 +57,16 @@ QGuiApplication *application(int &argc, char **argv)
 QQuickView *createView()
 {
     QQuickWindow::setDefaultAlphaBuffer(true);
-    return SailfishAppPriv::view();
+
+    QQuickView *view = SailfishAppPriv::view();
+
+    // XXX: The next 4 lines fix a bug in QtWayland not showing the window
+    // and should eventually be removed (see JB#8917)
+    QGuiApplication *application = static_cast<QGuiApplication *>(QGuiApplication::instance());
+    QSize screenSize = application->primaryScreen()->size();
+    view->resize(screenSize.width(), screenSize.height());
+
+    return view;
 }
 
 QUrl pathTo(const QString &filename)
