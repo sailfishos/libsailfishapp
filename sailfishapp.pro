@@ -34,7 +34,7 @@
 
 TEMPLATE = lib
 TARGET = sailfishapp
-VERSION = 1.0.0
+VERSION = 1.0.1
 
 QT += quick qml
 
@@ -64,9 +64,6 @@ feature.files = data/sailfishapp.prf
 
 header.path = $$PREFIX/include/sailfishapp/
 header.files = include/sailfishapp.h
-
-launcher.path = $$PREFIX/bin
-launcher.files = scripts/sailfish-app-launch
 
 INSTALLS += target feature header launcher
 

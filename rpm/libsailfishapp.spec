@@ -1,5 +1,5 @@
 Name: libsailfishapp
-Version: 1.0.0
+Version: 1.0.1
 Release: 1
 Summary: Sailfish Application Library
 Group: Development/Libraries
@@ -44,7 +44,6 @@ make install INSTALL_ROOT=%{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/sailfish-app-launch
 %{_libdir}/%{name}.so.*
 
 %files devel

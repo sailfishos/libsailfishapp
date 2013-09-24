@@ -21,17 +21,15 @@ Usage:
 
   3. In the .desktop file, use:
   
-        Exec=sailfish-app-launch <appname>
+        Exec=<appname>
 
 The ABI that is provided by libsailfishapp and must be kept stable:
 
-  - libsailfishapp.so.0
+  - libsailfishapp.so.1
       - SailfishApp::application
       - SailfishApp::createView
       - SailfishApp::pathTo
       - SailfishApp::main
-  - Launcher integration (in .desktop file)
-      - sailfish-app-launch <appname>
 
 The source API that is provided by libsailfishapp and should be kept stable:
 
