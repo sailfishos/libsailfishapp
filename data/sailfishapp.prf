@@ -43,7 +43,10 @@ qml.path = /usr/share/$${TARGET}
 desktop.files = $${TARGET}.desktop
 desktop.path = /usr/share/applications
 
-INSTALLS += target qml desktop
+icon.files = $${TARGET}.png
+icon.path = /usr/share/icons/hicolor/90x90/apps
+
+INSTALLS += target qml desktop icon
 
 CONFIG += link_pkgconfig
 PKGCONFIG += sailfishapp
