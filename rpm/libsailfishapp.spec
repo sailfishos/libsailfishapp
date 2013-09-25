@@ -28,6 +28,12 @@ Requires: pkgconfig(qdeclarative5-boostable)
 %description devel
 This package contains the development library for %{name}.
 
+%package launcher
+Summary: QML application launcher for %{summary}
+
+%description launcher
+This package contains "sailfish-qml", the pure QML Sailfish app launcher.
+
 %prep
 %setup -q
 
@@ -46,9 +52,14 @@ make install INSTALL_ROOT=%{buildroot}
 %defattr(-,root,root,-)
 %{_libdir}/%{name}.so.*
 
+%files launcher
+%defattr(-,root,root,-)
+%{_bindir}/sailfish-qml
+
 %files devel
 %defattr(-,root,root,-)
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/sailfishapp.pc
 %{_datadir}/qt5/mkspecs/features/sailfishapp.prf
+%{_datadir}/qt5/mkspecs/features/sailfishapp_qml.prf
 %{_includedir}/sailfishapp/sailfishapp.h

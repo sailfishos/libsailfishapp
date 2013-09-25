@@ -26,28 +26,20 @@
  **/
 
 
-#ifndef LIBSAILFISHAPP_SAILFISHAPP_PRIV_H
-#define LIBSAILFISHAPP_SAILFISHAPP_PRIV_H
-
 #include "sailfishapp.h"
+#include "sailfishapp_priv.h"
 
-#include <QString>
+#include <iostream>
 
+int main(int argc, char *argv[])
+{
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <appname>" << std::endl;
+        return 1;
+    }
 
-class QGuiApplication;
-class QQuickView;
+    // Application name is first parameter (private API for launcher)
+    SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(argv[1]);
 
-namespace SailfishAppPriv {
-    // Backend-specific (booster, non-booster) functions
-    QGuiApplication *application(int &argc, char **argv);
-    QQuickView *view();
-
-    // Non-backend-specific functions
-    QString appName();
-    QString dataDir();
-
-    // Only used by launcher - please don't use in 3rd party apps
-    SAILFISHAPP_EXPORT void _PrivateAPI_DoNotUse_setAppName(QString appName);
+    return SailfishApp::main(argc, argv);
 }
-
-#endif /* LIBSAILFISHAPP_SAILFISHAPP_PRIV_H */

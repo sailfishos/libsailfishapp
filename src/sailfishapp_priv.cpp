@@ -47,11 +47,22 @@ static QString applicationPath()
     }
 }
 
+static QString customAppName;
 
 namespace SailfishAppPriv {
 
+void _PrivateAPI_DoNotUse_setAppName(QString appName)
+{
+    // Set custom app name - used by the launcher
+    customAppName = appName;
+}
+
 QString appName()
 {
+    if (!customAppName.isNull()) {
+        return customAppName;
+    }
+
     QFileInfo exe = QFileInfo(applicationPath());
     return exe.fileName();
 }
