@@ -9,7 +9,7 @@ also make sure that applications built with the Sailfish SDK are future-
 proof, by putting all special cases inside libsailfishapp, where it can be
 updated by the vendor.
 
-Usage:
+Usage (Sailfish Silica Applications with custom C++ main() function):
 
   1. In the .spec file, add:
 
@@ -23,6 +23,23 @@ Usage:
   
         Exec=<appname>
 
+Usage (QML-only Sailfish Silica Applications, using "sailfish-qml"):
+
+  1. In the .spec file, add:
+
+        BuildRequires: pkgconfig(sailfishapp)
+        Requires: libsailfishapp-launcher
+
+  2. In the .pro file, add:
+
+        CONFIG += sailfishapp_qml
+
+  3. In the .desktop file, use:
+
+        Exec=sailfish-qml <appname>
+
+
+
 The ABI that is provided by libsailfishapp and must be kept stable:
 
   - libsailfishapp.so.1
@@ -34,4 +51,5 @@ The ABI that is provided by libsailfishapp and must be kept stable:
 The source API that is provided by libsailfishapp and should be kept stable:
 
   - qmake
-      - CONFIG += sailfishapp
+      - CONFIG += sailfishapp        (for C++/QML applications)
+      - CONFIG += sailfishapp_qml    (for pure QML applications)
