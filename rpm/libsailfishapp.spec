@@ -21,7 +21,7 @@ proof, by putting all special cases inside libsailfishapp, where it can be
 updated by the vendor.
 
 %package devel
-Summary: Development library for %{summary}
+Summary: Development library for Sailfish apps
 Requires: %{name} = %{version}
 Requires: pkgconfig(qdeclarative5-boostable)
 
@@ -29,7 +29,7 @@ Requires: pkgconfig(qdeclarative5-boostable)
 This package contains the development library for %{name}.
 
 %package launcher
-Summary: QML application launcher for %{summary}
+Summary: QML application launcher for Sailfish apps
 
 %description launcher
 This package contains "sailfish-qml", the pure QML Sailfish app launcher.
