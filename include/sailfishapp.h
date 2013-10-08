@@ -27,6 +27,10 @@
 #ifndef LIBSAILFISHAPP_SAILFISHAPP_H
 #define LIBSAILFISHAPP_SAILFISHAPP_H
 
+#ifdef QT_QML_DEBUG
+#include <QtQuick>
+#endif
+
 #include <QtGlobal>
 #include <QUrl>
 
