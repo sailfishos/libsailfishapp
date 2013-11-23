@@ -37,6 +37,7 @@
 #include <QQuickView>
 #include <QString>
 #include <QDir>
+#include <QQmlEngine>
 
 
 namespace SailfishApp {
@@ -59,6 +60,9 @@ QQuickView *createView()
     QQuickWindow::setDefaultAlphaBuffer(true);
 
     QQuickView *view = SailfishAppPriv::view();
+
+    // Add import path to allow private QML import modules in /usr/share/<name>/
+    view->engine()->addImportPath(SailfishAppPriv::dataDir());
 
     // XXX: The next 4 lines fix a bug in QtWayland not showing the window
     // and should eventually be removed (see JB#8917)
