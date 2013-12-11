@@ -1,0 +1,96 @@
+libsailfishapp documentation
+============================
+
+To ease development of applications for Sailfish and to make sure paths for the
+applications are set correctly, and application startup time is accelerated,
+third party applications on Sailfish OS should use libsailfishapp. This library
+provides certain convenience functions to set up the project, install all files
+into the right directories, and get important paths at runtime via convenience
+methods.
+
+This document also serves to describe the functionality of libsailfishapp so
+that developers who cannot use libsailfishapp in their projects can use this
+document as a guide for how to replicate the directory layout and paths.
+However, we generally recommend using libsailfishapp where possible, as it will
+allow applications to easily and automatically integrate well with Sailfish OS.
+
+
+How to use libsailfishapp in your project
+-----------------------------------------
+
+To use libsailfishapp in your project:
+
+ 1. Add <code>BuildRequires: pkgconfig(sailfishapp)</code> to your .spec file
+ 2. Set <code>TARGET = harbour-yourappname</code> in your .pro file
+ 3. Add <code>CONFIG += sailfishapp</code> to your .pro file
+ 4. Include <code>sailfishapp.h</code> in your .cpp file
+ 5. Use the <code>SailfishApp::</code> methods in your <code>main()</code>
+
+In the rest of this document, we will refer to the value of the
+<code>TARGET</code> variable in your .pro file as <code>$$TARGET</code>
+(this is also how you can use the variable itself in the .pro file).
+
+Files that get installed by libsailfishapp, and have to
+be present in the same directory as the .pro file:
+
+ * <code>$$TARGET.png</code> - An 86x86 pixel application icon
+ * <code>$$TARGET.desktop</code> - The .desktop file for your app
+ * <code>qml/</code> - A folder containing all your QML files
+
+libsailfishapp C++ API
+----------------------
+
+TODO: Describe the API calls libsailfishapp provides
+
+ * How to get the <code>QGuiApplication</code> instance
+ * How to create a new <code>QQuickView</code>
+ * How to use <code>SailfishApp::pathTo()</code> for file paths
+ * How for the most generic case one can use <code>SailfishApp::main()</code>
+
+libsailfishapp QML-only launcher
+--------------------------------
+
+TODO: Describe how to build a project without any C++ that can
+still access private QML imports and the Sailfish Silica API.
+
+Custom context properties
+-------------------------
+
+TODO: Explain where and how to set up custom context properties
+so they are exposed in the QML view.
+
+Custom QML types registered at runtime
+--------------------------------------
+
+TODO: Describe how one can use <code>qmlRegisterType</code> with
+libsailfishapp and the naming requirements for Harbour QA.
+
+Installing and using private shared libraries
+---------------------------------------------
+
+TODO: Describe where to install shared libraries, how to link
+against them and how libsailfishapp takes care of the rpath
+
+Installing and using private QML imports
+----------------------------------------
+
+TODO: Describe where to install private QML imports, how to
+import them in QML code, how libsailfishapp sets the import path
+and the naming requirements for Harbour QA.
+
+Storing application configuration files
+---------------------------------------
+
+TODO: Describe how to use <code>$XDG_CONFIG_HOME/$$TARGET</code> and
+the convenience method libsailfishapp will provide for that. Also
+describe how this data is managed by the system (cleaned, backed up,
+etc..). Also describe best practices for copying defaults from the
+system-wide data folder into the configuration folder at first start.
+
+Storing application data
+------------------------
+
+TODO: Describe how to use <code>$XDG_DATA_HOME/$$TARGET</code> and the
+convenience method libsailfishapp will provide for that. Also describe
+(like above) what will happen with this data (backup, cleanup, ...).
+

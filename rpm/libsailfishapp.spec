@@ -10,6 +10,7 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
+BuildRequires: python-markdown
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
@@ -33,6 +34,12 @@ Summary: QML application launcher for Sailfish apps
 
 %description launcher
 This package contains "sailfish-qml", the pure QML Sailfish app launcher.
+
+%package doc
+Summary: Documentation for %{name}.
+
+%description doc
+This package contains the documentation for %{name}.
 
 %prep
 %setup -q
@@ -63,3 +70,7 @@ make install INSTALL_ROOT=%{buildroot}
 %{_datadir}/qt5/mkspecs/features/sailfishapp.prf
 %{_datadir}/qt5/mkspecs/features/sailfishapp_qml.prf
 %{_includedir}/sailfishapp/sailfishapp.h
+
+%files doc
+%defattr(-,root,root,-)
+%{_defaultdocdir}
