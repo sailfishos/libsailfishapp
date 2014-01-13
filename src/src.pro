@@ -52,7 +52,7 @@ CONFIG += create_pc create_prl no_install_prl
 QMAKE_PKGCONFIG_NAME = sailfishapp
 QMAKE_PKGCONFIG_DESCRIPTION = Sailfish Application Library
 QMAKE_PKGCONFIG_LIBDIR = $$target.path
-QMAKE_PKGCONFIG_INCDIR = $$target.path
+QMAKE_PKGCONFIG_INCDIR = $$header.path
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
 target.path = $$PREFIX/lib
