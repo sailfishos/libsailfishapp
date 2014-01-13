@@ -4,7 +4,7 @@ Release: 1
 Summary: Sailfish Application Library
 Group: Development/Libraries
 License: LGPL
-URL: http://bitbucket.org/jolla/sdk-libsailfishapp
+URL: https://github.com/sailfish-sdk/libsailfishapp
 Source: %{name}-%{version}.tar.bz2
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Quick)
