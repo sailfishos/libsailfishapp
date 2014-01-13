@@ -33,6 +33,8 @@
 
 #include <QtGlobal>
 #include <QUrl>
+#include <QLocale>
+#include <QTranslator>
 
 class QGuiApplication;
 class QQuickView;
@@ -48,6 +50,8 @@ namespace SailfishApp {
     // Simple interface: Get boosted application and view
     SAILFISHAPP_EXPORT QGuiApplication *application(int &argc, char **argv);
     SAILFISHAPP_EXPORT QQuickView *createView();
+    SAILFISHAPP_EXPORT QTranslator *loadTranslation(const QLocale &locale = QLocale::system());
+    SAILFISHAPP_EXPORT QTranslator *loadTranslation(const QString &name);
 
     // Get fully-qualified path to a file in the data directory
     SAILFISHAPP_EXPORT QUrl pathTo(const QString &filename);

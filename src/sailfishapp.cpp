@@ -73,6 +73,26 @@ QQuickView *createView()
     return view;
 }
 
+QTranslator *loadTranslation(const QLocale &locale)
+{
+    QString translations = QString("%1/translations").arg(SailfishAppPriv::dataDir());
+    if (QFile(QString("%1/%2.qm").arg(translations).arg(locale.name())).exists()) {
+        QTranslator *translator = new QTranslator;
+        translator->load(locale.name(), translations);
+        return translator;
+    }
+    return NULL;
+}
+
+QTranslator *loadTranslation(QString &name)
+{
+    if (!name.isEmpty()) {
+        QLocale locale(name);
+        return SailfishApp::loadTranslation(locale);
+    }
+    return NULL;
+}
+
 QUrl pathTo(const QString &filename)
 {
     return QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2")
@@ -87,6 +107,11 @@ int main(int &argc, char **argv)
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 
+    QTranslator *translator = SailfishApp::loadTranslation();
+    if (translator) {
+        app->installTranslator(translator);
+    }
+
     QString qml = QString("qml/%1.qml").arg(SailfishAppPriv::appName());
     view->setSource(SailfishApp::pathTo(qml));
     view->show();
@@ -95,6 +120,7 @@ int main(int &argc, char **argv)
 
     delete view;
     delete app;
+    delete translator;
 
     return result;
 }
