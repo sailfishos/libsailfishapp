@@ -29,6 +29,7 @@
 #include "sailfishapp_priv.h"
 
 #include <QCoreApplication>
+#include <QGuiApplication>
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
@@ -75,6 +76,22 @@ QString dataDir()
     return QDir::cleanPath(QString("%1/%2")
         .arg(exe.absoluteDir().filePath("../share"))
         .arg(appName()));
+}
+
+QGuiApplication *
+configureApp(QGuiApplication *app)
+{
+    // We need to set the appName, so the following features will use
+    // the right application name for the data directory:
+    //
+    //  - QStandardPaths (::DataLocation, ::CacheLocation)
+    //  - QSettings (with default organization/application name)
+    //  - Qt Quick Local Storage (QQmlEngine::offlineStoragePath())
+
+    app->setOrganizationName(appName());
+    app->setOrganizationDomain(appName());
+    app->setApplicationName(appName());
+    return app;
 }
 
 }; /* namespace SailfishAppPriv */

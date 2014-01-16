@@ -35,7 +35,7 @@ namespace SailfishAppPriv {
 
 QGuiApplication *application(int &argc, char **argv)
 {
-    return MDeclarativeCache::qApplication(argc, argv);
+    return configureApp(MDeclarativeCache::qApplication(argc, argv));
 }
 
 QQuickView *view()

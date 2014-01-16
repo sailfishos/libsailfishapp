@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = src docs data launcher
+SUBDIRS = src docs data launcher tests

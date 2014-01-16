@@ -81,16 +81,24 @@ and the naming requirements for Harbour QA.
 Storing application configuration files
 ---------------------------------------
 
-TODO: Describe how to use <code>$XDG_CONFIG_HOME/$$TARGET</code> and
-the convenience method libsailfishapp will provide for that. Also
-describe how this data is managed by the system (cleaned, backed up,
-etc..). Also describe best practices for copying defaults from the
-system-wide data folder into the configuration folder at first start.
+To store application configuration files, you can use the standard
+<code>QSettings</code> class with the default constructor, which
+will use the application and organization name (set correctly by
+libsailfishapp to the application name, which is the binary name in
+case of C++ applications or the first argument in case of QML-only
+applications with the <code>sailfish-qml</code> launcher).
 
-Storing application data
-------------------------
+Storing application data and cached files
+-----------------------------------------
 
-TODO: Describe how to use <code>$XDG_DATA_HOME/$$TARGET</code> and the
-convenience method libsailfishapp will provide for that. Also describe
-(like above) what will happen with this data (backup, cleanup, ...).
+To store application data, use the location returned by
+<code>QStandardPaths::writableLocation(QStandardPaths::DataLocation)</code>
 
+To store cache files (these files can be removed at any time by the
+system if disk space is low, and these files are not guaranteed to
+be backed up), use the location returned by
+<code>QStandardPaths::writableLocation(QStandardPaths::CacheLocation)</codE>
+
+You can also use the Qt Quick Local Storage API to store data directly
+from your QML-only Sailfish Application. libsailfishapp will make sure
+that your application uses a application-specific storage directory.
