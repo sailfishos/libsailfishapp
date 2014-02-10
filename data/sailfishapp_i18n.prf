@@ -35,11 +35,16 @@
 
 TS_FILE = translations/$${TARGET}.ts
 
-update_translations.commands += mkdir -p translations && lupdate . -ts $$TS_FILE
+# The target would really be $$TS_FILE, but we use a non-file target to emulate .PHONY
+update_translations.target = update_translations
+update_translations.commands += mkdir -p translations && lupdate src qml -ts $${TS_FILE}
 QMAKE_EXTRA_TARGETS += update_translations
+PRE_TARGETDEPS += update_translations
 
+build_translations.target = build_translations
 build_translations.commands += lrelease $${TRANSLATIONS}
 QMAKE_EXTRA_TARGETS += build_translations
+POST_TARGETDEPS += build_translations
 
 qm.files = $$replace(TRANSLATIONS, .ts, .qm)
 qm.path = /usr/share/$${TARGET}/translations
