@@ -69,6 +69,7 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/pkgconfig/sailfishapp.pc
 %{_datadir}/qt5/mkspecs/features/sailfishapp.prf
 %{_datadir}/qt5/mkspecs/features/sailfishapp_qml.prf
+%{_datadir}/qt5/mkspecs/features/sailfishapp_i18n.prf
 %{_includedir}/sailfishapp/sailfishapp.h
 
 %files doc

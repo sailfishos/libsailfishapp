@@ -33,6 +33,8 @@
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
+#include <QLocale>
+#include <QTranslator>
 
 
 static QString applicationPath()
@@ -91,6 +93,23 @@ configureApp(QGuiApplication *app)
     app->setOrganizationName(appName());
     app->setOrganizationDomain(appName());
     app->setApplicationName(appName());
+
+    // Automatic i18n support. Translations are supposed to be named
+    // "<appname>-<lang>.qm" in "/usr/share/<appname>/translations/"
+
+    QString translations = QDir(dataDir()).filePath("translations");
+    if (QDir(translations).exists()) {
+        QTranslator *translator = new QTranslator();
+
+        // Fallback translation (optional; only for id-based translations)
+        //translator->load(QDir(translations).filePath(appName() + "_eng_en"));
+
+        // Locale-based translation
+        translator->load(QLocale::system(), appName(), "-", translations);
+
+        app->installTranslator(translator);
+    }
+
     return app;
 }
 

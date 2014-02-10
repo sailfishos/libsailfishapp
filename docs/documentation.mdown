@@ -37,6 +37,32 @@ be present in the same directory as the .pro file:
  * <code>$$TARGET.desktop</code> - The .desktop file for your app
  * <code>qml/</code> - A folder containing all your QML files
 
+How to use i18n support in your project
+---------------------------------------
+
+To use the internationalization convenience features of libsailfishapp:
+
+ 1. In your main .pro file, add:<br><code>CONFIG += sailfishapp_i18n</code>
+ 2. Run <code>qmake</code>
+ 3. Run <code>make</code> (this will create or update the file <code>translations/$APPNAME.ts</code>)
+ 4. In your RPM packaging .yaml file, add the following entry to
+    the files section:<br><code>- '%{_datadir}/%{name}/translations'</code>
+
+To add a new language to your project:
+
+ 1. Copy translations/$APPNAME.ts to translations/$APPNAME-$LANG.ts
+    (for example, for German, use "$APPNAME-de.ts", etc...)
+ 2. In your main .pro file, add (with $LANG replaced with the language):
+    <br><code>TRANSLATIONS += translations/$APPNAME-$LANG.ts</code>
+
+If during development you want to skip building the translations
+every time, you can simply comment out the line
+
+    CONFIG += sailfishapp_i18n
+
+in your qmake .pro file, and the translations will not be built/updated.
+Be sure to re-enable the line when you do the release build.
+
 libsailfishapp C++ API
 ----------------------
 
