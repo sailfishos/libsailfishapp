@@ -33,16 +33,16 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-TS_FILE = translations/$${TARGET}.ts
+TS_FILE = $${_PRO_FILE_PWD_}/translations/$${TARGET}.ts
 
 # The target would really be $$TS_FILE, but we use a non-file target to emulate .PHONY
 update_translations.target = update_translations
-update_translations.commands += mkdir -p translations && lupdate src qml -ts $${TS_FILE}
+update_translations.commands += mkdir -p translations && lupdate $${_PRO_FILE_PWD_}/src $${_PRO_FILE_PWD_}/qml -ts $${TS_FILE}
 QMAKE_EXTRA_TARGETS += update_translations
 PRE_TARGETDEPS += update_translations
 
 build_translations.target = build_translations
-build_translations.commands += lrelease $${TRANSLATIONS}
+build_translations.commands += lrelease $${_PRO_FILE_}
 QMAKE_EXTRA_TARGETS += build_translations
 POST_TARGETDEPS += build_translations
 
