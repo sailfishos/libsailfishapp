@@ -35,9 +35,17 @@
 
 TS_FILE = $${_PRO_FILE_PWD_}/translations/$${TARGET}.ts
 
+# Translation source directories
+TRANSLATION_SOURCE_CANDIDATES = $${_PRO_FILE_PWD_}/src $${_PRO_FILE_PWD_}/qml
+for(dir, TRANSLATION_SOURCE_CANDIDATES) {
+    exists($$dir) {
+        TRANSLATION_SOURCES += $$dir
+    }
+}
+
 # The target would really be $$TS_FILE, but we use a non-file target to emulate .PHONY
 update_translations.target = update_translations
-update_translations.commands += mkdir -p translations && lupdate $${_PRO_FILE_PWD_}/src $${_PRO_FILE_PWD_}/qml -ts $${TS_FILE}
+update_translations.commands += mkdir -p translations && lupdate $${TRANSLATION_SOURCES} -ts $${TS_FILE}
 QMAKE_EXTRA_TARGETS += update_translations
 PRE_TARGETDEPS += update_translations
 
