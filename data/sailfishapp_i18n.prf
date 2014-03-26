@@ -50,7 +50,12 @@ QMAKE_EXTRA_TARGETS += update_translations
 PRE_TARGETDEPS += update_translations
 
 build_translations.target = build_translations
-build_translations.commands += lrelease $${_PRO_FILE_}
+sailfishapp_i18n_idbased {
+    build_translations.commands += lrelease -idbased $${_PRO_FILE_}
+} else {
+    build_translations.commands += lrelease $${_PRO_FILE_}
+}
+
 QMAKE_EXTRA_TARGETS += build_translations
 POST_TARGETDEPS += build_translations
 

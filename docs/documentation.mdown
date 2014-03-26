@@ -43,6 +43,7 @@ How to use i18n support in your project
 To use the internationalization convenience features of libsailfishapp:
 
  1. In your main .pro file, add:<br><code>CONFIG += sailfishapp_i18n</code>
+ <br>If you use id based translations also add:<br><code>CONFIG += sailfishapp_i18n_idbased</code>
  2. Run <code>qmake</code>
  3. Run <code>make</code> (this will create or update the file <code>translations/$APPNAME.ts</code> and all files 
     in TRANSLATIONS)
