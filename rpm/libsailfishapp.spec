@@ -10,6 +10,7 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
+BuildRequires: pkgconfig(mlite5)
 BuildRequires: python-markdown
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig

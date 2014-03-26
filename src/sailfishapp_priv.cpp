@@ -35,6 +35,8 @@
 #include <QDir>
 #include <QLocale>
 #include <QTranslator>
+#include <QQuickView>
+#include <MDesktopEntry>
 
 
 static QString applicationPath()
@@ -111,6 +113,21 @@ configureApp(QGuiApplication *app)
     }
 
     return app;
+}
+
+QQuickView *
+configureView(QQuickView *view)
+{
+    if (!view) {
+        qWarning("View is NULL while trying to configure view");
+        return NULL;
+    }
+
+    MDesktopEntry entry("/usr/share/applications/" + appName() + ".desktop");
+    if (entry.isValid()) {
+        view->setTitle(entry.name());
+    }
+    return view;
 }
 
 }; /* namespace SailfishAppPriv */

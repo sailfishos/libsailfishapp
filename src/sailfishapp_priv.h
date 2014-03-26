@@ -46,6 +46,7 @@ namespace SailfishAppPriv {
     QString appName();
     QString dataDir();
     QGuiApplication *configureApp(QGuiApplication *app);
+    QQuickView *configureView(QQuickView *view);
 
     // Only used by launcher - please don't use in 3rd party apps
     SAILFISHAPP_EXPORT void _PrivateAPI_DoNotUse_setAppName(QString appName);
