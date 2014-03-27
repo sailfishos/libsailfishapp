@@ -1,0 +1,67 @@
+# Copyright (c) 2014 Jolla Ltd.
+# Contact: Joona Petrell <joona.petrell@jolla.com>
+# All rights reserved.
+#
+# This file is part of libsailfishapp
+#
+# You may use this file under the terms of BSD license as follows:
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Jolla Ltd nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+isEmpty(TRANSLATION_PROJECT) {
+    TRANSLATION_PROJECT = $$TARGET
+}
+isEmpty(TRANSLATION_SOURCE) {
+    TRANSLATION_SOURCE = $$_PRO_FILE_PWD_
+}
+
+TS_FILE = $$_PRO_FILE_PWD_/$${TRANSLATION_PROJECT}.ts
+EE_QM = $$_PRO_FILE_PWD_/$${TRANSLATION_PROJECT}_eng_en.qm
+
+translations.commands += lupdate $$TRANSLATION_SOURCE -ts $$TS_FILE
+translations.output = $$TS_FILE
+translations.input = .
+
+translations_install.files = $$TS_FILE
+translations_install.path = $$PREFIX/share/translations/source
+translations_install.CONFIG += no_check_exist
+
+engineering_english.commands += lrelease -idbased $$TS_FILE -qm $$EE_QM
+engineering_english.depends = translations
+engineering_english.input = $$TS_FILE
+engineering_english.output = $$EE_QM
+
+TRANSLATIONS_PATH = $$PREFIX/share/translations
+engineering_english_install.path = $$TRANSLATIONS_PATH
+engineering_english_install.files = $$EE_QM
+engineering_english_install.CONFIG += no_check_exist
+
+QMAKE_EXTRA_TARGETS += translations engineering_english
+PRE_TARGETDEPS += translations engineering_english
+DEFINES += TRANSLATIONS_PATH=\"\\\"\"$${TRANSLATIONS_PATH}\"\\\"\"
+
+INSTALLS += translations_install
+!contains(CONFIG, desktop) {
+    INSTALLS += engineering_english_install
+}
