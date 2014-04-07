@@ -63,6 +63,8 @@ header.files = ../include/sailfishapp.h
 INSTALLS += target header
 
 CONFIG += link_pkgconfig
+PKGCONFIG += mlite5
+
 packagesExist(qdeclarative5-boostable) {
     message("Building with qdeclarative-boostable support")
     SOURCES += sailfishapp_priv_boosted.cpp

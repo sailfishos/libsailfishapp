@@ -40,7 +40,7 @@ QGuiApplication *application(int &argc, char **argv)
 
 QQuickView *view()
 {
-    return MDeclarativeCache::qQuickView();
+    return configureView(MDeclarativeCache::qQuickView());
 }
 
 }; /* namespace SailfishAppPriv */

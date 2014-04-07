@@ -41,7 +41,7 @@ QGuiApplication *application(int &argc, char **argv)
 
 QQuickView *view()
 {
-    return new QQuickView;
+    return configureView(new QQuickView);
 }
 
 }; /* namespace SailfishAppPriv */
