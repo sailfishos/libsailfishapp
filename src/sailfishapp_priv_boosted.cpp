@@ -1,7 +1,7 @@
 
 /**
  *
- * Copyright (C) 2013 Jolla Ltd.
+ * Copyright (C) 2013 - 2014 Jolla Ltd.
  * Contact: Thomas Perl <thomas.perl@jollamobile.com>
  * All rights reserved.
  *
