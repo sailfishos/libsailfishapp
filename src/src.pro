@@ -32,7 +32,7 @@
 
 TEMPLATE = lib
 TARGET = sailfishapp
-VERSION = 1.0.4
+VERSION = 1.0.5
 
 QT += quick qml
 
