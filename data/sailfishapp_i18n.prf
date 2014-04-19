@@ -33,7 +33,8 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-TS_FILE = $${_PRO_FILE_PWD_}/translations/$${TARGET}.ts
+TS_FILE = \"$${_PRO_FILE_PWD_}/translations/$${TARGET}.ts\"
+HAVE_XLATIONS = 0
 
 # Translation source directories
 TRANSLATION_SOURCE_CANDIDATES = $${_PRO_FILE_PWD_}/src $${_PRO_FILE_PWD_}/qml
@@ -43,24 +44,29 @@ for(dir, TRANSLATION_SOURCE_CANDIDATES) {
     }
 }
 
-# The target would really be $$TS_FILE, but we use a non-file target to emulate .PHONY
-update_translations.target = update_translations
-update_translations.commands += mkdir -p translations && lupdate $${TRANSLATION_SOURCES} -ts \"$${TS_FILE}\" $$TRANSLATIONS
-QMAKE_EXTRA_TARGETS += update_translations
-PRE_TARGETDEPS += update_translations
-
-build_translations.target = build_translations
-sailfishapp_i18n_idbased {
-    build_translations.commands += lrelease -idbased \"$${_PRO_FILE_}\"
-} else {
-    build_translations.commands += lrelease \"$${_PRO_FILE_}\"
+# prefix all TRANSLATIONS with the src dir
+# the qm files are generated from the ts files copied to out dir
+for(t, TRANSLATIONS) {
+    XLATION_IN  += \"$${_PRO_FILE_PWD_}/$$t\"
+    XLATION_OUT += \"$${OUT_PWD}/$$t\"
+    HAVE_XLATIONS = 1
 }
 
-QMAKE_EXTRA_TARGETS += build_translations
-POST_TARGETDEPS += build_translations
-
-qm.files = $$replace(TRANSLATIONS, .ts, .qm)
+qm.files = $$replace(XLATION_OUT, \.ts, .qm)
 qm.path = /usr/share/$${TARGET}/translations
 qm.CONFIG += no_check_exist
+
+# update the ts files in the src dir and then copy them to the out dir
+qm.commands += lupdate $${TRANSLATION_SOURCES} -ts $${TS_FILE} $$XLATION_IN && \
+    mkdir -p translations && \
+    [ \"$${OUT_PWD}\" != \"$${_PRO_FILE_PWD_}\" -a $$HAVE_XLATIONS -eq 1 ] && \
+    cp -af $${XLATION_IN} \"$${OUT_PWD}/translations\" || :
+
+# create the qm files
+sailfishapp_i18n_idbased {
+    qm.commands += ; [ $$HAVE_XLATIONS -eq 1 ] && lrelease -idbased $${XLATION_OUT} || :
+} else {
+    qm.commands += ; [ $$HAVE_XLATIONS -eq 1 ] && lrelease $${XLATION_OUT} || :
+}
 
 INSTALLS += qm
