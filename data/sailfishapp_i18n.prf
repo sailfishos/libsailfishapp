@@ -33,7 +33,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-TS_FILE = $${_PRO_FILE_PWD_}/translations/$${TARGET}.ts
+TS_FILE = \"$${_PRO_FILE_PWD_}/translations/$${TARGET}.ts\"
 
 # Translation source directories
 TRANSLATION_SOURCE_CANDIDATES = $${_PRO_FILE_PWD_}/src $${_PRO_FILE_PWD_}/qml
@@ -43,23 +43,35 @@ for(dir, TRANSLATION_SOURCE_CANDIDATES) {
     }
 }
 
+# prefix all TRANSLATIIONS with the src dir
+for(t, TRANSLATIONS) {
+    XLATION_IN += \"$${_PRO_FILE_PWD_}/$$t\"
+}
 # The target would really be $$TS_FILE, but we use a non-file target to emulate .PHONY
 update_translations.target = update_translations
-update_translations.commands += mkdir -p translations && lupdate $${TRANSLATION_SOURCES} -ts \"$${TS_FILE}\" $$TRANSLATIONS
+# update the ts files in the src dir and then copy them to the out dir
+update_translations.commands += lupdate $${TRANSLATION_SOURCES} -ts $${TS_FILE} $$XLATION_IN && \
+    mkdir -p translations && \
+    [ \"$${OUT_PWD}\" != \"$${_PRO_FILE_PWD_}\" ] && \
+    cp -af \"$${_PRO_FILE_PWD_}/translations/\"*.ts \"$${OUT_PWD}/translations\" || :
 QMAKE_EXTRA_TARGETS += update_translations
 PRE_TARGETDEPS += update_translations
 
+# the qm files are generated from the ts files copied to out dir
+for (t, TRANSLATIONS) {
+    XLATION_OUT += \"$${OUT_PWD}/$$t\"
+}
 build_translations.target = build_translations
 sailfishapp_i18n_idbased {
-    build_translations.commands += lrelease -idbased \"$${_PRO_FILE_}\"
+    build_translations.commands += lrelease -idbased $${XLATION_OUT}
 } else {
-    build_translations.commands += lrelease \"$${_PRO_FILE_}\"
+    build_translations.commands += lrelease $${XLATION_OUT}
 }
 
 QMAKE_EXTRA_TARGETS += build_translations
 POST_TARGETDEPS += build_translations
 
-qm.files = $$replace(TRANSLATIONS, .ts, .qm)
+qm.files = $$replace(XLATION_OUT, \.ts, .qm)
 qm.path = /usr/share/$${TARGET}/translations
 qm.CONFIG += no_check_exist
 
