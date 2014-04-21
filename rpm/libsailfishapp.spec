@@ -46,6 +46,8 @@ This package contains the documentation for %{name}.
 %setup -q
 
 %build
+# Auto-update pkg-config / library version from RPM .spec version
+sed -i -e 's#^VERSION = .*$#VERSION = %{version}#' src/src.pro
 %qmake5
 make
 
