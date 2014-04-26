@@ -37,6 +37,13 @@ be present in the same directory as the .pro file:
  * <code>$$TARGET.desktop</code> - The .desktop file for your app
  * <code>qml/</code> - A folder containing all your QML files
 
+If you want to opt out of automatic deployment of the <code>qml/</code>
+folder, set <code>CONFIG += sailfishapp_no_deploy_qml</code> before adding
+the sailfishapp configuration option. You might want to set this option if
+for some reason you intend to ship your QML files as Qt Resources (qrc).
+We recommend that you keep the default setup and install QML files in the
+filesystem instead.
+
 How to use i18n support in your project
 ---------------------------------------
 
