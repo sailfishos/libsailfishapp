@@ -38,7 +38,21 @@ Usage (QML-only Sailfish Silica Applications, using "sailfish-qml"):
 
         Exec=sailfish-qml <appname>
 
+Translation support:
 
+  1. In the .pro file, add:
+
+        CONFIG += sailfishapp_i18n
+        TRANSLATIONS += translations/appname-LANG1.ts
+        TRANSLATIONS += translations/appname-LANG2.ts
+
+Id-based translations can be handled by further adding:
+
+        CONFIG += sailfishapp_i18n_idbased
+
+To install also unfinished translations, add:
+
+        CONFIG += sailfishapp_i18n_unfinished
 
 The ABI that is provided by libsailfishapp and must be kept stable:
 
