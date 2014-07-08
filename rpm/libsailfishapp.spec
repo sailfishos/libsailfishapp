@@ -1,5 +1,5 @@
 Name: libsailfishapp
-Version: 1.0.8
+Version: 1.0.9
 Release: 1
 Summary: Sailfish Application Library
 Group: Development/Libraries
