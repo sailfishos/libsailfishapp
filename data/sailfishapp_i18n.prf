@@ -57,7 +57,7 @@ qm.path = /usr/share/$${TARGET}/translations
 qm.CONFIG += no_check_exist
 
 # update the ts files in the src dir and then copy them to the out dir
-qm.commands += lupdate $${TRANSLATION_SOURCES} -ts $${TS_FILE} $$TRANSLATIONS_IN && \
+qm.commands += lupdate -noobsolete $${TRANSLATION_SOURCES} -ts $${TS_FILE} $$TRANSLATIONS_IN && \
     mkdir -p translations && \
     [ \"$${OUT_PWD}\" != \"$${_PRO_FILE_PWD_}\" -a $$HAVE_TRANSLATIONS -eq 1 ] && \
     cp -af $${TRANSLATIONS_IN} \"$${OUT_PWD}/translations\" || :
