@@ -43,7 +43,11 @@ static QString applicationPath()
 {
     QStringList _args = QCoreApplication::arguments();
     QString argv0("");
+<<<<<<< HEAD
     if (_args.count() > 0)
+=======
+    if (_args.count > 0)
+>>>>>>> FETCH_HEAD
       argv0 = _args[0];
 
     if (argv0.startsWith("/")) {
