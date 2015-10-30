@@ -44,6 +44,13 @@ for some reason you intend to ship your QML files as Qt Resources (qrc).
 We recommend that you keep the default setup and install QML files in the
 filesystem instead.
 
+In case you provide application icon in multiple sizes:
+
+ 1. Add <code>SAILFISHAPP_ICONS = size1 size2...</code> to your .pro file,
+    enumerating all available icon sizes in form <code>WIDTHxHEIGHT</code>
+ 2. Ensure all icons are present as <code>icons/WIDTHxHEIGHT/$$TARGET.png</code>
+    in the source tree
+
 How to use i18n support in your project
 ---------------------------------------
 

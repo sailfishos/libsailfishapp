@@ -47,10 +47,17 @@ target.path = /usr/bin
 desktop.files = $${TARGET}.desktop
 desktop.path = /usr/share/applications
 
-icon.files = $${TARGET}.png
-icon.path = /usr/share/icons/hicolor/86x86/apps
+INSTALLS += target desktop
 
-INSTALLS += target desktop icon
+!isEmpty(SAILFISHAPP_ICONS):for(size, SAILFISHAPP_ICONS) {
+    icon$${size}.files = icons/$${size}/$${TARGET}.png
+    icon$${size}.path = /usr/share/icons/hicolor/$${size}/apps
+    INSTALLS += icon$${size}
+} else {
+    icon.files = $${TARGET}.png
+    icon.path = /usr/share/icons/hicolor/86x86/apps
+    INSTALLS += icon
+}
 
 CONFIG += link_pkgconfig
 PKGCONFIG += sailfishapp
