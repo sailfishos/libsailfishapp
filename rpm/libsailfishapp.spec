@@ -3,7 +3,7 @@ Version: 1.0.11
 Release: 1
 Summary: Sailfish Application Library
 Group: Development/Libraries
-License: LGPL
+License: LGPLv2.1
 URL: https://github.com/sailfish-sdk/libsailfishapp
 Source: %{name}-%{version}.tar.bz2
 BuildRequires: pkgconfig(Qt5Gui)
