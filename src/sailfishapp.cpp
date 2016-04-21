@@ -85,6 +85,9 @@ int main(int &argc, char **argv)
     view->setSource(SailfishApp::pathTo(qml));
     view->show();
 
+    QObject::connect(view->engine(), &QQmlEngine::quit,
+                     app, &QGuiApplication::quit);
+
     result = app->exec();
 
     delete view;
