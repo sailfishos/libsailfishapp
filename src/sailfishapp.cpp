@@ -32,6 +32,7 @@
 #include <QtGlobal>
 
 #include <QGuiApplication>
+#include <QScopedPointer>
 #include <QScreen>
 #include <QSize>
 #include <QQuickView>
@@ -74,26 +75,21 @@ QUrl pathTo(const QString &filename)
         .arg(filename)));
 }
 
+QUrl pathToMainQml()
+{
+    QString mainQml = QString("qml/%1.qml").arg(SailfishAppPriv::appName());
+    return pathTo(mainQml);
+}
+
 int main(int &argc, char **argv)
 {
-    int result = 0;
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
 
-    QGuiApplication *app = SailfishApp::application(argc, argv);
-    QQuickView *view = SailfishApp::createView();
-
-    QString qml = QString("qml/%1.qml").arg(SailfishAppPriv::appName());
-    view->setSource(SailfishApp::pathTo(qml));
+    view->setSource(SailfishApp::pathToMainQml());
     view->show();
 
-    QObject::connect(view->engine(), &QQmlEngine::quit,
-                     app, &QGuiApplication::quit);
-
-    result = app->exec();
-
-    delete view;
-    delete app;
-
-    return result;
+    return app->exec();
 }
 
 }; /* namespace SailfishApp */
