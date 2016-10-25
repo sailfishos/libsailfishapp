@@ -31,6 +31,7 @@
 
 #include <QDebug>
 #include <QGuiApplication>
+#include <QProcessEnvironment>
 #include <QQuickView>
 #include <QScopedPointer>
 
@@ -45,6 +46,11 @@ int main(int argc, char *argv[])
 
     // Application name is first parameter (private API for launcher)
     SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(app->arguments().at(1));
+
+    if (QProcessEnvironment::systemEnvironment().contains(
+            QStringLiteral("SAILFISHAPP_ENABLE_QML_DEBUGGING"))) {
+        (void)QQmlDebuggingEnabler(false);
+    }
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
