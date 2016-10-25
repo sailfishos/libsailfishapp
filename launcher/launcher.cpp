@@ -29,17 +29,27 @@
 #include "sailfishapp.h"
 #include "sailfishapp_priv.h"
 
-#include <iostream>
+#include <QDebug>
+#include <QGuiApplication>
+#include <QQuickView>
+#include <QScopedPointer>
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <appname>" << std::endl;
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+
+    if (app->arguments().count() != 2) {
+        qWarning() << "Usage: " << qPrintable(app->arguments().first()) << " <appname>";
         return 1;
     }
 
     // Application name is first parameter (private API for launcher)
-    SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(argv[1]);
+    SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(app->arguments().at(1));
 
-    return SailfishApp::main(argc, argv);
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
+
+    view->setSource(SailfishApp::pathToMainQml());
+    view->show();
+
+    return app->exec();
 }
