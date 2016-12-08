@@ -50,6 +50,8 @@ namespace SailfishAppPriv {
 
     // Only used by launcher - please don't use in 3rd party apps
     SAILFISHAPP_EXPORT void _PrivateAPI_DoNotUse_setAppName(QString appName);
+
+    SAILFISHAPP_EXPORT void _PrivateAPI_DoNotUse_onViewCreated(QQuickView *view) __attribute__((weak));
 }
 
 #endif /* LIBSAILFISHAPP_SAILFISHAPP_PRIV_H */

@@ -127,6 +127,11 @@ configureView(QQuickView *view)
     if (entry.isValid()) {
         view->setTitle(entry.name());
     }
+
+    if (_PrivateAPI_DoNotUse_onViewCreated) {
+        _PrivateAPI_DoNotUse_onViewCreated(view);
+    }
+
     return view;
 }
 
