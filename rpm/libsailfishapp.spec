@@ -1,5 +1,5 @@
 Name: libsailfishapp
-Version: 1.0.11
+Version: 0
 Release: 1
 Summary: Sailfish Application Library
 Group: Development/Libraries
@@ -46,9 +46,7 @@ This package contains the documentation for %{name}.
 %setup -q
 
 %build
-# Auto-update pkg-config / library version from RPM .spec version
-sed -i -e 's#^VERSION = .*$#VERSION = %{version}#' src/src.pro
-%qmake5
+%qmake5 VERSION=%{version}
 make
 
 %install
