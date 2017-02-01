@@ -30,6 +30,7 @@
 
 #include <QCoreApplication>
 #include <QGuiApplication>
+#include <QQmlEngine>
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
@@ -127,6 +128,9 @@ configureView(QQuickView *view)
     if (entry.isValid()) {
         view->setTitle(entry.name());
     }
+
+    QObject::connect(view->engine(), &QQmlEngine::quit,
+                     qApp, &QGuiApplication::quit);
 
     if (_PrivateAPI_DoNotUse_onViewCreated) {
         _PrivateAPI_DoNotUse_onViewCreated(view);

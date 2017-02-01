@@ -52,6 +52,9 @@ namespace SailfishApp {
     // Get fully-qualified path to a file in the data directory
     SAILFISHAPP_EXPORT QUrl pathTo(const QString &filename);
 
+    // Get fully-qualified path to the "qml/<appname>.qml"  file
+    SAILFISHAPP_EXPORT QUrl pathToMainQml();
+
     // Very simple interface: Uses "qml/<appname>.qml" as QML entry point
     SAILFISHAPP_EXPORT int main(int &argc, char **argv);
 };
