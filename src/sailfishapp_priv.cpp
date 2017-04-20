@@ -42,7 +42,10 @@
 
 static QString applicationPath()
 {
-    QString argv0 = QCoreApplication::arguments()[0];
+    QStringList _args = QCoreApplication::arguments();
+    QString argv0("");
+    if (_args.count() > 0)
+      argv0 = _args[0];
 
     if (argv0.startsWith("/")) {
         // First, try argv[0] if it's an absolute path (needed for booster)
