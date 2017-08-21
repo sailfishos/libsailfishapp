@@ -29,7 +29,7 @@
 #include "sailfishapp.h"
 #include "sailfishapp_priv.h"
 
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QStandardPaths>
 #include <QSettings>
 #include <QQmlEngine>
@@ -63,6 +63,8 @@ int main(int argc, char *argv[])
 
     qDebug() << "== QQmlEngine ==";
     qDebug() << "Offline storage path:" << QQmlEngine().offlineStoragePath();
+
+    delete app;
 
     return 0;
 }
