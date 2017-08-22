@@ -37,15 +37,17 @@
 
 int main(int argc, char *argv[])
 {
-    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-
-    if (app->arguments().count() != 2) {
-        qWarning() << "Usage: " << qPrintable(app->arguments().first()) << " <appname>";
+    // SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName() must be called before
+    // SailfishApp::application(), so not using QCoreApplication::arguments()
+    // and strictly requiring that <appname> is the very first argument,
+    // preceding any options recognized by Qt when used.
+    if (argc < 2 || argv[1][0] == '\0' || argv[1][0] == '-') {
+        qWarning() << "Usage: " << argv[0] << " <appname> [<qt-option>...]";
         return 1;
     }
+    SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(argv[1]);
 
-    // Application name is first parameter (private API for launcher)
-    SailfishAppPriv::_PrivateAPI_DoNotUse_setAppName(app->arguments().at(1));
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 
     if (QProcessEnvironment::systemEnvironment().contains(
             QStringLiteral("SAILFISHAPP_ENABLE_QML_DEBUGGING"))) {
