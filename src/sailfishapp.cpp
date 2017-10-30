@@ -64,6 +64,7 @@ QQuickView *createView()
 
     // Add import path to allow private QML import modules in /usr/share/<name>/
     view->engine()->addImportPath(SailfishAppPriv::dataDir());
+    view->setResizeMode(QQuickView::SizeRootObjectToView);
 
     return view;
 }
