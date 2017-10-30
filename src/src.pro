@@ -53,6 +53,7 @@ QMAKE_PKGCONFIG_DESCRIPTION = Sailfish Application Library
 QMAKE_PKGCONFIG_LIBDIR = $$target.path
 QMAKE_PKGCONFIG_INCDIR = ${prefix}/include/sailfishapp
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+QMAKE_PKGCONFIG_VERSION = $$VERSION
 
 target.path = $$PREFIX/lib
 
