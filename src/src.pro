@@ -33,7 +33,7 @@
 TEMPLATE = lib
 TARGET = sailfishapp
 
-QT += quick qml
+QT = quick qml
 
 DEFINES += LIBSAILFISHAPP_LIBRARY
 
