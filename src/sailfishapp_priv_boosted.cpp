@@ -31,7 +31,8 @@
 #include <MDeclarativeCache>
 
 
-namespace SailfishAppPriv {
+namespace SailfishAppPriv
+{
 
 QGuiApplication *application(int &argc, char **argv)
 {
@@ -43,4 +44,4 @@ QQuickView *view()
     return configureView(MDeclarativeCache::qQuickView());
 }
 
-}; /* namespace SailfishAppPriv */
+}

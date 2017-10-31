@@ -41,7 +41,8 @@
 #include <QQmlEngine>
 
 
-namespace SailfishApp {
+namespace SailfishApp
+{
 
 QGuiApplication *application(int &argc, char **argv)
 {
@@ -93,4 +94,4 @@ int main(int &argc, char **argv)
     return app->exec();
 }
 
-}; /* namespace SailfishApp */
+}

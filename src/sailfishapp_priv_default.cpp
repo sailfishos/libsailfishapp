@@ -32,7 +32,8 @@
 #include <QQuickView>
 
 
-namespace SailfishAppPriv {
+namespace SailfishAppPriv
+{
 
 QGuiApplication *application(int &argc, char **argv)
 {
@@ -44,4 +45,4 @@ QQuickView *view()
     return configureView(new QQuickView);
 }
 
-}; /* namespace SailfishAppPriv */
+}

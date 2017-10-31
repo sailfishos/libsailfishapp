@@ -44,7 +44,8 @@ class QString;
 #  define SAILFISHAPP_EXPORT Q_DECL_IMPORT
 #endif
 
-namespace SailfishApp {
+namespace SailfishApp
+{
     // Simple interface: Get boosted application and view
     SAILFISHAPP_EXPORT QGuiApplication *application(int &argc, char **argv);
     SAILFISHAPP_EXPORT QQuickView *createView();
@@ -57,7 +58,7 @@ namespace SailfishApp {
 
     // Very simple interface: Uses "qml/<appname>.qml" as QML entry point
     SAILFISHAPP_EXPORT int main(int &argc, char **argv);
-};
+}
 
 /* Forward-declare that main() is exportable (needed for booster) */
 Q_DECL_EXPORT int main(int argc, char *argv[]);
