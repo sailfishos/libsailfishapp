@@ -46,7 +46,7 @@ This package contains the documentation for %{name}.
 %setup -q
 
 %build
-%qmake5 VERSION=%{version}
+%qmake5 -r VERSION=%{version}
 make
 
 %install

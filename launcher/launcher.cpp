@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     view->setSource(SailfishApp::pathToMainQml());
-    view->show();
+    view->showFullScreen();
 
     return app->exec();
 }
