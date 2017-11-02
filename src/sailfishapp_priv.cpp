@@ -55,7 +55,8 @@ static QString applicationPath()
 
 static QString customAppName;
 
-namespace SailfishAppPriv {
+namespace SailfishAppPriv
+{
 
 void _PrivateAPI_DoNotUse_setAppName(QString appName)
 {
@@ -139,4 +140,4 @@ configureView(QQuickView *view)
     return view;
 }
 
-}; /* namespace SailfishAppPriv */
+}

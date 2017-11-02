@@ -37,7 +37,8 @@
 class QGuiApplication;
 class QQuickView;
 
-namespace SailfishAppPriv {
+namespace SailfishAppPriv
+{
     // Backend-specific (booster, non-booster) functions
     QGuiApplication *application(int &argc, char **argv);
     QQuickView *view();
