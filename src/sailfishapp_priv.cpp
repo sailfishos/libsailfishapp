@@ -108,8 +108,15 @@ configureApp(QGuiApplication *app)
         // Fallback translation (optional; only for id-based translations)
         //translator->load(QDir(translations).filePath(appName() + "_eng_en"));
 
-        // Locale-based translation
-        translator->load(QLocale::system(), appName(), "-", translations);
+        QString name = appName();
+
+        // Try to load locale-based translation
+        if (!translator->load(QLocale::system(), name, "-", translations))
+        {
+            // Load default translation if locale-based translation
+            // haven't been loaded (actual for id-based translations)
+            translator->load(name, translations);
+        }
 
         app->installTranslator(translator);
     }
