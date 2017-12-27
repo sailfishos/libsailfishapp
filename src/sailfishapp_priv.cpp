@@ -110,8 +110,7 @@ configureApp(QGuiApplication *app)
         //translator->load(QDir(translations).filePath(appName() + "_eng_en"));
 
         // Try to load locale-based translation
-        if (!translator->load(QLocale::system(), name, "-", translations))
-        {
+        if (!translator->load(QLocale::system(), name, "-", translations)) {
             // Load default translation if locale-based translation
             // haven't been loaded (actual for id-based translations)
             translator->load(name, translations);
