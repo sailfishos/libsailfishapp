@@ -94,9 +94,10 @@ configureApp(QGuiApplication *app)
     //  - QSettings (with default organization/application name)
     //  - Qt Quick Local Storage (QQmlEngine::offlineStoragePath())
 
-    app->setOrganizationName(appName());
-    app->setOrganizationDomain(appName());
-    app->setApplicationName(appName());
+    QString name = appName();
+    app->setOrganizationName(name);
+    app->setOrganizationDomain(name);
+    app->setApplicationName(name);
 
     // Automatic i18n support. Translations are supposed to be named
     // "<appname>-<lang>.qm" in "/usr/share/<appname>/translations/"
@@ -105,11 +106,8 @@ configureApp(QGuiApplication *app)
     if (QDir(translations).exists()) {
         QTranslator *translator = new QTranslator();
 
-        // Fallback translation (optional; only for id-based translations)
-        //translator->load(QDir(translations).filePath(appName() + "_eng_en"));
-
-        // Locale-based translation
-        translator->load(QLocale::system(), appName(), "-", translations);
+        // Firstly try to load "<appname>-<lang>.qm" then "<appname>.qm"
+        translator->load(QLocale::system(), name, "-", translations, ".qm");
 
         app->installTranslator(translator);
     }
