@@ -35,7 +35,9 @@ TARGET = sailfishapp
 
 QT = quick qml
 
-DEFINES += LIBSAILFISHAPP_LIBRARY
+DEFINES += \
+    LIBSAILFISHAPP_LIBRARY \
+    QT_USE_QSTRINGBUILDER
 
 HEADERS += ../include/sailfishapp.h
 
