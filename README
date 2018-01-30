@@ -54,6 +54,10 @@ To install also unfinished translations, add:
 
         CONFIG += sailfishapp_i18n_unfinished
 
+To specify additional translation sources, add:
+
+        TRANSLATION_SOURCES += /path/to/translation/sources
+
 The ABI that is provided by libsailfishapp and must be kept stable:
 
   - libsailfishapp.so.1
