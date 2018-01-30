@@ -72,15 +72,15 @@ QQuickView *createView()
 
 QUrl pathTo(const QString &filename)
 {
-    return QUrl::fromLocalFile(QDir::cleanPath(QString("%1/%2")
-        .arg(SailfishAppPriv::dataDir())
-        .arg(filename)));
+    return QUrl::fromLocalFile(
+                QDir::cleanPath(SailfishAppPriv::dataDir() + '/' + filename));
 }
 
 QUrl pathToMainQml()
 {
-    QString mainQml = QString("qml/%1.qml").arg(SailfishAppPriv::appName());
-    return pathTo(mainQml);
+    return QUrl::fromLocalFile(
+                QDir::cleanPath(SailfishAppPriv::dataDir() + "/qml/" +
+                                SailfishAppPriv::appName() + ".qml"));
 }
 
 int main(int &argc, char **argv)

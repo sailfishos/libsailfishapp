@@ -44,7 +44,7 @@ static QString applicationPath()
 {
     QString argv0 = QCoreApplication::arguments()[0];
 
-    if (argv0.startsWith("/")) {
+    if (argv0.startsWith(QChar('/'))) {
         // First, try argv[0] if it's an absolute path (needed for booster)
         return argv0;
     } else {
@@ -79,9 +79,9 @@ QString dataDir()
     QFileInfo exe = QFileInfo(applicationPath());
 
     // "/usr/bin/<appname>" --> "/usr/share/<appname>/"
-    return QDir::cleanPath(QString("%1/%2")
-        .arg(exe.absoluteDir().filePath("../share"))
-        .arg(appName()));
+    QString path = exe.absolutePath();
+    int i = path.lastIndexOf(QChar('/')) + 1;
+    return path.replace(i, path.length() - i, "share/") + appName();
 }
 
 QGuiApplication *
