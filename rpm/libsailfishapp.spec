@@ -11,7 +11,6 @@ BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
 BuildRequires: pkgconfig(mlite5)
-BuildRequires: python-markdown
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
@@ -38,6 +37,7 @@ This package contains "sailfish-qml", the pure QML Sailfish app launcher.
 
 %package doc
 Summary: Documentation for %{name}.
+BuildRequires: mer-qdoc-template
 
 %description doc
 This package contains the documentation for %{name}.

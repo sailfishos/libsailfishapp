@@ -1,13 +1,12 @@
 TEMPLATE = aux
 
-docs.path = $$PREFIX/share/doc/libsailfishapp/
-docs.files = index.html static/background.jpg static/develop.png
-docs.depends = mdown
+CONFIG += mer-qdoc-template
+MER_QDOC.project = libsailfishapp
+MER_QDOC.config = libsailfishapp.qdocconf
+MER_QDOC.style = offline
+MER_QDOC.path = /usr/share/doc/libsailfishapp/
 
-INSTALLS += docs
+OTHER_FILES += \
+    $$PWD/libsailfishapp.qdocconf \
+    $$PWD/index.qdoc
 
-mdown.files = mdown
-mdown.commands = (cat static/header.html; markdown documentation.mdown; cat static/footer.html) > index.html
-mdown.depends = documentation.mdown
-
-QMAKE_EXTRA_TARGETS = mdown
