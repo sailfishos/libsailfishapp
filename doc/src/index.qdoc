@@ -1,0 +1,142 @@
+/****************************************************************************************
+**
+** Copyright (C) 2019 Jolla Ltd.
+** Contact: David Llewellyn-jones <david.llewellyn-jones@jollamobile.com>
+** All rights reserved.
+**
+****************************************************************************************/
+
+/*!
+\contentspage {libsailfishapp documentation}
+\page index.html
+\contentspage {Sailfish App Library Overview}{Contents}
+
+\title libsailfishapp documentation
+
+To ease development of applications for Sailfish OS and to make sure paths for
+the applications are set correctly and application startup time is
+accelerated, third party applications on Sailfish OS should use libsailfishapp.
+This library provides certain convenience functions within the \l SailfishApp
+namespace to set up your project, install all files into the right directories,
+and get important paths at runtime via convenience methods.
+
+This document also serves to describe the functionality of libsailfishapp so
+that developers who cannot use it in their projects can use the info provided
+here as a guide for how to replicate the directory layout and paths. However,
+we generally recommend using libsailfishapp where possible, as it will allow
+applications to easily and automatically integrate well with Sailfish OS.
+
+\section1 API documentation
+
+For more specific API documentation, see the \l SailfishApp namespace
+documentation.
+
+\section1 How to use SailfishApp in your project
+
+To use \l SailfishApp in your project:
+
+\list 1
+    \li Add \c {BuildRequires: pkgconfig(sailfishapp)} to your .spec file
+    \li Set \c {TARGET = harbour-yourappname} in your .pro file
+    \li Add \c {CONFIG += sailfishapp} to your .pro file
+    \li Include \c {sailfishapp.h} in your .cpp file
+    \li Use the \c {SailfishApp::} methods in your \c main()
+\endlist
+
+In the rest of this document, we will refer to the value of the
+\c TARGET variable in your .pro file as \c $$TARGET
+(this is also how you can use the variable itself in the .pro file).
+
+Files that get installed by libsailfishapp and have to be present in the same
+directory as the .pro file:
+
+\list
+    \li \c $$TARGET.png - An 86x86 pixel application icon
+    \li \c $$TARGET.desktop - The .desktop file for your app
+    \li \c qml/ - A folder containing all your QML files
+\endlist
+
+If you want to opt out of automatic deployment of the \c{qml/}
+folder, set \c{CONFIG += sailfishapp_no_deploy_qml} before adding
+the \l SailfishApp configuration option. You might want to set this option
+if for some reason you intend to ship your QML files as Qt Resources (qrc).
+We recommend that you keep the default setup and install QML files in the
+filesystem instead.
+
+\section2 Deploying app icons in multiple sizes
+
+It's recommended that you provide application icons in multiple sizes, to
+support different device types and different screen DPI settings. You can do
+this with the following steps.
+
+\list 1
+\li Add \c{SAILFISHAPP_ICONS = size1 size2...} to your .pro file,
+    enumerating all available icon sizes in the form \c{WIDTHxHEIGHT}
+\li Ensure all icons are present as \c{icons/WIDTHxHEIGHT/$$TARGET.png}
+    in the source tree
+\endlist
+
+For a list of recommended icon sizes, see the \l
+{https://harbour.jolla.com/faq#3.1.0} {Harbour FAQ}. The \l
+{https://sailfishos.org/design/icons/} {Sailfish App Icons Guidelines} include
+useful and important material about how to design your apps to best suit the
+Sailfish OS style.
+
+\section2 Using i18n support in your project
+
+To use the internationalization convenience features of \l SailfishApp, do
+the following.
+
+\list 1
+\li In your main .pro file, add:
+
+\code
+CONFIG += sailfishapp_i18n
+\endcode
+
+If you use id based translations also add:
+
+\code
+CONFIG += sailfishapp_i18n_idbased
+\endcode
+\li Run \c{qmake}
+\li Run \c{make} (this will create or update the file
+\c{translations/$APPNAME.ts} and all files in TRANSLATIONS)
+\li In your RPM packaging .yaml file, add the following entry to the files
+section:
+
+\code
+- '%{_datadir}/%{name}/translations'}
+\endcode
+\endlist
+
+To add a new language to your project:
+
+\list 1
+\li In your main .pro file, add (with $LANG replaced with the language):
+
+\code
+TRANSLATIONS += translations/$APPNAME-$LANG.ts}
+\endcode
+
+(for example, for German, use "$APPNAME-de.ts", etc...)
+\li Run \c{qmake}
+\li Run \c{make}
+\endlist
+
+If during development you want to skip building the translations every time,
+you can simply comment out the line
+
+\code
+CONFIG += sailfishapp_i18n
+\endcode
+
+in your qmake .pro file and the translations will not be built/updated. Be
+sure to re-enable the line when you do the release build.
+
+\section1 Further information
+
+For further information about how to use libsailfishapp, refer to
+the Sailfish SDK User Manual.
+
+*/
