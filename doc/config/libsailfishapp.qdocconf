@@ -1,0 +1,52 @@
+project         = Sailfish App Library
+description     = Sailfish App Library Reference Documentation
+versionsym      =
+version         = 1.0.0
+url             = https://github.com/sailfishos/libsailfishapp/
+
+sourcedirs += $$PWD/../doc/src $$PWD/../src
+headerdirs += $$PWD/../include
+
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+
+# See https://bugreports.qt.io/browse/QTBUG-59045
+Cpp.ignoretokens += SAILFISHAPP_EXPORT
+
+outputformats = HTML
+outputdir = $$PWD/../doc/html
+base = file:$$PWD/../doc/html
+tagfile = $$PWD/../doc/html/libsailfishapp.tags
+
+outputprefixes = QML
+outputprefixes.QML = qml-SailfishAppLibrary-
+
+qhp.projects = SailfishAppLibrary
+
+qhp.SailfishAppLibrary.subprojects = manual libsailfishapp
+
+qhp.SailfishAppLibrary.subprojects.manual.title = Sailfish App Library Overview
+qhp.SailfishAppLibrary.subprojects.manual.indexTitle = Sailfish App Library Overview
+qhp.SailfishAppLibrary.subprojects.manual.selectors = fake:page
+qhp.SailfishAppLibrary.subprojects.manual.type = manual
+
+qhp.SailfishAppLibrary.subprojects.libsailfishapp.title = C++ Namespace
+qhp.SailfishAppLibrary.subprojects.libsailfishapp.indexTitle = SailfishApp
+qhp.SailfishAppLibrary.subprojects.libsailfishapp.selectors = namespace
+qhp.SailfishAppLibrary.subprojects.libsailfishapp.sortPages = true
+
+qhp.SailfishAppLibrary.file = libsailfishapp.qhp
+qhp.SailfishAppLibrary.namespace = org.sailfishos.libsailfishapp.1.0.0
+qhp.SailfishAppLibrary.virtualFolder = libsailfishapp
+qhp.SailfishAppLibrary.indexTitle = Sailfish App Library Overview
+qhp.SailfishAppLibrary.indexRoot =
+
+qhp.SailfishAppLibrary.filterAttributes = org.sailfishos.libsailfishapp 1.0.0
+qhp.SailfishAppLibrary.customFilters.SailfishAppLibrary.name = Sailfish OS libsailfishapp 1.0.0
+qhp.SailfishAppLibrary.customFilters.SailfishAppLibrary.filterAttributes = org.sailfishos.libsailfishapp 1.0.0
+
+imagedirs = images
+
+navigation.homepage = "Sailfish App Library Overview"
+
+include(qt-html-templates.qdocconf)
