@@ -11,7 +11,7 @@
 \page index.html
 \contentspage {Sailfish App Library Overview}{Contents}
 
-\title libsailfishapp documentation
+\title Sailfish App Library Overview
 
 To ease development of applications for Sailfish OS and to make sure paths for
 the applications are set correctly and application startup time is
