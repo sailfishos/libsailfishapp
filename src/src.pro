@@ -57,7 +57,7 @@ QMAKE_PKGCONFIG_INCDIR = ${prefix}/include/sailfishapp
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 QMAKE_PKGCONFIG_VERSION = $$VERSION
 
-target.path = $$PREFIX/lib
+target.path = $$[QT_INSTALL_LIBS]
 
 header.path = $$PREFIX/include/sailfishapp/
 header.files = ../include/sailfishapp.h
