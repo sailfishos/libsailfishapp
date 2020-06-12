@@ -2,7 +2,6 @@ Name: libsailfishapp
 Version: 1
 Release: 1
 Summary: Sailfish Application Library
-Group: Development/Libraries
 License: LGPLv2
 URL: https://github.com/sailfishos/libsailfishapp
 Source: %{name}-%{version}.tar.bz2
