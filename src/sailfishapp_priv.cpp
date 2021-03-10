@@ -96,9 +96,24 @@ configureApp(QGuiApplication *app)
     //  - Qt Quick Local Storage (QQmlEngine::offlineStoragePath())
 
     QString name = appName();
-    app->setOrganizationName(name);
-    app->setOrganizationDomain(name);
-    app->setApplicationName(name);
+
+    MDesktopEntry entry(QStandardPaths::locate(
+                QStandardPaths::ApplicationsLocation, appName() + ".desktop"));
+    if (entry.isSandboxed()) {
+        const auto section = QStringLiteral("X-Sailjail");
+        QString organizationName = entry.value(section, "OrganizationName");
+        if (organizationName.isEmpty())
+            organizationName = name;
+        app->setOrganizationName(organizationName);
+        app->setOrganizationDomain(organizationName);
+        QString applicationName = entry.value(section, "ApplicationName");
+        app->setApplicationName(
+                applicationName.isEmpty() ? name : applicationName);
+    } else {
+        app->setOrganizationName(name);
+        app->setOrganizationDomain(name);
+        app->setApplicationName(name);
+    }
 
     // Automatic i18n support. Translations are supposed to be named
     // "<appname>-<lang>.qm" in "/usr/share/<appname>/translations/"
