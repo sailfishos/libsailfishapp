@@ -38,6 +38,7 @@
 #include <QTranslator>
 #include <QQuickView>
 #include <MDesktopEntry>
+#include <QStandardPaths>
 
 
 static QString applicationPath()
@@ -123,7 +124,8 @@ configureView(QQuickView *view)
         return NULL;
     }
 
-    MDesktopEntry entry("/usr/share/applications/" + appName() + ".desktop");
+    MDesktopEntry entry(QStandardPaths::locate(
+                QStandardPaths::ApplicationsLocation, appName() + ".desktop"));
     if (entry.isValid()) {
         view->setTitle(entry.name());
     }
