@@ -47,11 +47,9 @@ This package contains the documentation for %{name}.
 %build
 %qmake5 -r VERSION=%{version}
 make
-make docs
 
 %install
 make install INSTALL_ROOT=%{buildroot}
-make install_docs INSTALL_ROOT=%{buildroot}
 
 %post -p /sbin/ldconfig
 
