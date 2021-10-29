@@ -58,6 +58,7 @@ make install INSTALL_ROOT=%{buildroot}
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}.so.*
+%license COPYING
 
 %files launcher
 %defattr(-,root,root,-)
