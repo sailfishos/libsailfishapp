@@ -25,6 +25,7 @@ updated by the vendor.
 Summary: Development library for Sailfish apps
 Requires: %{name} = %{version}
 Requires: pkgconfig(qdeclarative5-boostable)
+Requires: qt5-qttools-linguist
 
 %description devel
 This package contains the development library for %{name}.
