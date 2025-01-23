@@ -65,9 +65,9 @@ header.files = ../include/sailfishapp.h
 INSTALLS += target header
 
 CONFIG += link_pkgconfig
-PKGCONFIG += mlite5
+PKGCONFIG += mlite$${QT_MAJOR_VERSION}
 
-packagesExist(qdeclarative5-boostable) {
+packagesExist(qdeclarative$${QT_MAJOR_VERSION}-boostable) {
     message("Building with qdeclarative-boostable support")
     SOURCES += sailfishapp_priv_boosted.cpp
 
@@ -78,11 +78,11 @@ packagesExist(qdeclarative5-boostable) {
 
     # XXX: Do not hardcode this; use PKGCONFIG += like above (but we
     # cannot do this at this point, because of the "-pie" linker flag)
-    LIBS += -rdynamic -lmdeclarativecache5
-    QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -I/usr/include/mdeclarativecache5
+    LIBS += -rdynamic -lmdeclarativecache$${QT_MAJOR_VERSION}
+    QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -I/usr/include/mdeclarativecache$${QT_MAJOR_VERSION}
 
     # Use the right linker flags when linking the app
-    QMAKE_PKGCONFIG_REQUIRES += qdeclarative5-boostable
+    QMAKE_PKGCONFIG_REQUIRES += qdeclarative$${QT_MAJOR_VERSION}-boostable
 } else {
     warning("qdeclarative-boostable not available; startup times will be slower")
     SOURCES += sailfishapp_priv_default.cpp
