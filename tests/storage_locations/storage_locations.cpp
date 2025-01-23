@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     qDebug() << "Application:" << QCoreApplication::applicationName();
 
     qDebug() << "== QStandardPaths ==";
-    qDebug() << "Writable data:" << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    qDebug() << "Writable data:" << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     qDebug() << "Writable cache:" << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 
     // QStandardPaths::ConfigLocation only tells us the generic config

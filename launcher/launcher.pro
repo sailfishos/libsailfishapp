@@ -13,4 +13,6 @@ LIBS += -L../src -lsailfishapp
 
 # Always use booster
 CONFIG += link_pkgconfig
-PKGCONFIG += qdeclarative5-boostable
+packagesExist(qdeclarative$${QT_MAJOR_VERSION}-boostable) {
+    PKGCONFIG += qdeclarative$${QT_MAJOR_VERSION}-boostable
+}
