@@ -11,6 +11,8 @@ BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(qdeclarative5-boostable)
 BuildRequires: pkgconfig(mlite5)
 BuildRequires: sailfish-qdoc-template
+Provides: %{name}-launcher = %{version}-%{release}
+Obsoletes: %{name}-launcher < %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
@@ -21,6 +23,8 @@ also make sure that applications built with the Sailfish SDK are future-
 proof, by putting all special cases inside libsailfishapp, where it can be
 updated by the vendor.
 
+This package also contains "sailfish-qml", the pure QML Sailfish app launcher.
+
 %package devel
 Summary: Development library for Sailfish apps
 Requires: %{name} = %{version}
@@ -30,14 +34,8 @@ Requires: qt5-qttools-linguist
 %description devel
 This package contains the development library for %{name}.
 
-%package launcher
-Summary: QML application launcher for Sailfish apps
-
-%description launcher
-This package contains "sailfish-qml", the pure QML Sailfish app launcher.
-
 %package doc
-Summary: Documentation for %{name}.
+Summary: Documentation for %{name}
 
 %description doc
 This package contains the documentation for %{name}.
@@ -57,16 +55,11 @@ make install INSTALL_ROOT=%{buildroot}
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %{_libdir}/%{name}.so.*
+%{_bindir}/sailfish-qml
 %license COPYING
 
-%files launcher
-%defattr(-,root,root,-)
-%{_bindir}/sailfish-qml
-
 %files devel
-%defattr(-,root,root,-)
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/sailfishapp.pc
 %{_datadir}/qt5/mkspecs/features/sailfishapp.prf
@@ -75,5 +68,4 @@ make install INSTALL_ROOT=%{buildroot}
 %{_includedir}/sailfishapp/sailfishapp.h
 
 %files doc
-%defattr(-,root,root,-)
-%{_defaultdocdir}
+%{_defaultdocdir}/%{name}

@@ -28,7 +28,7 @@ Usage (QML-only Sailfish Silica Applications, using "sailfish-qml"):
   1. In the .spec file, add:
 
         BuildRequires: pkgconfig(sailfishapp)
-        Requires: libsailfishapp-launcher
+        Requires: libsailfishapp
 
   2. In the .pro file, add:
 
